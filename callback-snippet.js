@@ -1,31 +1,41 @@
-"use strict";
-(callWhenReadyToGo = function callWhenReadyToGo() {
-  (this.ajaxComplete = !0), this.startChecking();
-}),
-  (callWhenReadyToGo.prototype = {
-    startChecking: function startChecking() {
-      this.initAjaxTests(),
-        (this.interval = setInterval(this.checkIfReady.on(this), 100));
-    },
-    initAjaxTests: function initAjaxTests() {
-      (this.ajaxComplete = !0),
-        "undefined" == typeof $ ||
-          this.addedAjaxFuncs ||
-          ((this.addedAjaxFuncs = !0),
-          $(document).ajaxStart(
-            function() {
-              this.ajaxComplete = !1;
-            }.on(this)
-          ),
-          $(document).ajaxStop(
-            function() {
-              this.ajaxComplete = !0;
-            }.on(this)
-          ));
-    },
-    complete: function complete() {
-      "function" == typeof this.callback &&
-        (this.callback(), (this.callback = null)),
-        this.interval && (clearInterval(this.interval), (this.interval = null));
+callWhenReadyToGo = function (callback){
+  this.ajaxComplete = true;
+  this.startChecking();
+};
+
+callWhenReadyToGo.prototype ={
+  startChecking: function(){
+    this.initAjaxTests();
+    this.interval = setInterval(this.checkIfReady.on(this),100);
+  },
+ 
+  initAjaxTests: function(){
+    this.ajaxComplete = true;
+    if(typeof $ !== "undefined" && !this.addedAjaxFuncs){
+      this.addedAjaxFuncs = true;
+      // Set ajax as incomplete if a call gets fired
+      $( document ).ajaxStart(function() {
+        this.ajaxComplete = false;
+      }.on(this));
+      // Set it back to complete when all calls are completed
+      $( document ).ajaxStop(function() {
+        this.ajaxComplete = true;
+      }.on(this));
     }
-  });
+  },
+
+  complete: function(){
+    if(typeof this.callback === "function"){
+      this.callback();
+      this.callback = null;
+    }
+    if(this.interval){
+      clearInterval(this.interval);
+      this.interval = null;
+    }
+  }
+};
+
+ 
+
+ 
