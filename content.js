@@ -56,7 +56,8 @@ function document_ready_event() { // <--- this callback is not able to handle dy
 // -------------------------------------------------------------
 function document_complete_event() {
 	for(var i = 0, elems = document.getElementsByTagName('h2'); i < elems.length; i++) { 
-   		elems[i].innerHTML = "New HEADER 2";
+   		elems[i].innerHTML = "<span style='font-size:40px; color:#1981E2;'>" + "Callback Extension: New HEADER 2" + "</span>";
+ 
 	}
 	console.log("Tag Detected Document Complete!");
 	alert("Hi! Page loaded and Tag detected")
