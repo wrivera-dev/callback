@@ -10,14 +10,13 @@ function init() {
 }
 
 function callbackWhenReady(callback) {
-	if (document.readyState === "complete") { // this could be your callWhenYouareReady
+	if (document.readyState === "complete") {  
         clearInterval(readyStateCheckInterval);
-        callback(); // <---- this is the call back
+        callback();  
 		loading=false;
 		interactive = false;
     }
 }
-
 
 var readyStateCheckInterval = setInterval(function() {	
     
@@ -39,24 +38,23 @@ var readyStateCheckInterval = setInterval(function() {
 }, 10);
 
 
-function document_ready_event() { // <--- this callback is not able to handle dynamic content (ajax) so  we put ***document..ready substitute  onreadystatechange
-	// a new check in order to detect dynamic content loaded 
+function document_ready_event() {  
 	console.log("page ready");
 	
-	checkPageForTagInterval = setInterval(function() {	// <--- this checks every 10 ms the page searching for DOM element by class attribute
-		var element = document.querySelectorAll(".core-rail .main-container .container");	// linkedin main feed class attribute
+	checkPageForTagInterval = setInterval(function() {	 
+		var element = document.querySelectorAll(".core-rail .main-container .container");	 
 
 		if (element) {
-			clearInterval(checkPageForTagInterval);	// <-- element found, stop searching call next callback
-			document_complete_event();		// <-- callback
+			clearInterval(checkPageForTagInterval);	 
+			document_complete_event();	 
 		}
 	}, 10);
 }
-
-// -------------------------------------------------------------
+ 
 function document_complete_event() {
 	for(var i = 0, elems = document.getElementsByTagName('h2'); i < elems.length; i++) { 
-   		elems[i].innerHTML = "New HEADER 2";
+   		elems[i].innerHTML = "<span style='font-size:40px; color:#1981E2;'>" + "Callback Extension: New HEADER 2" + "</span>";
+ 
 	}
 	console.log("Tag Detected Document Complete!");
 	alert("Hi! Page loaded and Tag detected")
