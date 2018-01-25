@@ -1,0 +1,28 @@
+body {
+	padding: 10px 0;
+	min-width: 325px;
+}
+.page-header {
+	border: 0;
+	font-size: 2em;
+	margin: 0 0 10px 0;
+	padding: 0;
+}
+.page-header small {
+	line-height: 2em;
+}
+a span.glyphicon {
+	font-size: 75%;
+}
+
+.panel-heading+.list-group .list-group-item:first-child {
+    border-top-width: 0;
+}
+
+li.list-group-item {
+	margin-bottom: 0px;
+	padding: 2px 5px;
+	font-size: 11px;
+	border: 0px solid white
+}
+ 
